@@ -2,7 +2,6 @@
 import streamlit as st
 import pandas as pd
 import numpy as np
-import matplotlib.pyplot as plt
 import csv
 from datetime import datetime
 import ssl
@@ -188,13 +187,16 @@ if submitted:
                            unsafe_allow_html=True)
             cols[1].metric("Probability", f"{dia_proba*100:.1f}%")
 
-            # Visualizations
-            fig, ax = plt.subplots(figsize=(10,4))
-            ax.barh(["Heart Disease", "Diabetes"], [heart_proba, dia_proba], 
-                   color=[h_color, d_color])
-            ax.set_xlim(0, 1)
-            ax.set_title("Risk Probability Distribution")
-            st.pyplot(fig)
+            # Visualization without matplotlib
+            st.markdown("---")
+            st.subheader("Risk Visualization")
+            
+            # Simple text-based visualization
+            st.write(f"Heart Disease Risk: {'█' * int(heart_proba * 20)} {heart_proba*100:.1f}%")
+            st.progress(heart_proba)
+            
+            st.write(f"Diabetes Risk: {'█' * int(dia_proba * 20)} {dia_proba*100:.1f}%")
+            st.progress(dia_proba)
 
             # Wellness Plan
             st.markdown("---")
